@@ -29,8 +29,14 @@ Spotify Web API, so no developer app, no client ID, no login inside the widget,
 no rate limits and nothing to build. Browsing, search and playlists stay in the
 Spotify apps you already have.
 
+The track shows up only while this computer is the active Spotify device:
+spotifyd registers on D-Bus when a Spotify app connects to it and leaves when
+playback moves elsewhere. The rest of the time the bar shows the dimmed icon
+alone, and the popup reminds you to pick this computer.
+
 The default player match is `spotify`, so the widget also works with the
-official Spotify desktop client if that is what you run.
+official Spotify desktop client if that is what you run. Every control was
+tested with both spotifyd 0.4.2 and the desktop client 1.2.96.
 
 ## Requirements
 
