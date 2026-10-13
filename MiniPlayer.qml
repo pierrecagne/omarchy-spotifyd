@@ -115,8 +115,9 @@ BarWidget {
   }
 
   readonly property string tooltip: {
-    if (!player) return "No Spotify player running"
-    if (!hasTrack) return "Nothing playing"
+    // spotifyd only appears on the bus while a Spotify app has picked this
+    // computer, so a missing player is the normal idle state, not an error.
+    if (!hasTrack) return "Nothing playing here"
     return title + (artist ? " — " + artist : "")
   }
 
@@ -278,7 +279,7 @@ BarWidget {
           Text {
             textFormat: Text.PlainText
             text: root.hasTrack ? root.artist
-              : (root.player ? "Pick this computer in any Spotify app" : "No Spotify player running")
+              : "Pick this computer in any Spotify app"
             color: Qt.darker(root.bar.foreground, 1.3)
             font.family: root.bar.fontFamily
             font.pixelSize: Style.font.bodySmall
