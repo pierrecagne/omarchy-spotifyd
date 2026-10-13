@@ -283,6 +283,9 @@ BarWidget {
             color: Qt.darker(root.bar.foreground, 1.3)
             font.family: root.bar.fontFamily
             font.pixelSize: Style.font.bodySmall
+            // The idle hint may take two lines; artist names stay on one.
+            wrapMode: root.hasTrack ? Text.NoWrap : Text.WordWrap
+            maximumLineCount: root.hasTrack ? 1 : 2
             elide: Text.ElideRight
             width: parent.width
             visible: text !== ""
