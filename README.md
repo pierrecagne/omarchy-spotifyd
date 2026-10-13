@@ -3,6 +3,12 @@
 Turn your Omarchy machine into a Spotify Connect speaker that you drive from
 your phone, with a small mini-player in the bar.
 
+> [!WARNING]
+> This plugin was vibe coded with Claude Opus 5.5. By installing it, you
+> accept that it is your responsibility to read and check the code yourself
+> before using it. Like every Omarchy plugin, it runs unsandboxed inside
+> `omarchy-shell` with your user's permissions.
+
 ![Mini-player popup under the bar: cover art, track, seek bar, transport, volume](preview.png)
 
 Playback runs in [spotifyd](https://github.com/Spotifyd/spotifyd), the
