@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.pierrecagne.spotifyd",
+  "name": "Spotifyd Mini Player",
+  "version": "1.0.0",
+  "author": "Pierre Cagne",
+  "license": "MIT",
+  "description": "Bar mini-player for spotifyd over MPRIS: turn this computer into a Spotify Connect speaker you drive from your phone. No Web API, no login, no build step.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "MiniPlayer.qml"
+  },
+  "barWidget": {
+    "displayName": "Spotifyd Mini Player",
+    "description": "Spotify icon and track title; click for artwork, seek, transport, shuffle, repeat and volume.",
+    "category": "Media",
+    "aliases": [
+      "spotify",
+      "spotifyd",
+      "music",
+      "player"
+    ],
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "player": "spotify",
+      "maxTitleWidth": 240
+    },
+    "schema": [
+      {
+        "key": "player",
+        "type": "string",
+        "label": "MPRIS player",
+        "defaultValue": "spotify",
+        "description": "Case-insensitive substring of the player's D-Bus name. \"spotify\" matches both spotifyd and the desktop client; \"spotifyd\" pins it to spotifyd."
+      },
+      {
+        "key": "maxTitleWidth",
+        "type": "integer",
+        "label": "Maximum title width (px)",
+        "min": 0,
+        "max": 600,
+        "step": 20,
+        "defaultValue": 240,
+        "description": "0 hides the title and leaves only the icon."
+      }
+    ]
+  }
+}
