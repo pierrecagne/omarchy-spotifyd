@@ -97,6 +97,30 @@ BarWidget {
       player.volume = Math.max(0, Math.min(1, Math.round((player.volume + delta) * 100) / 100))
   }
 
+  // The slider emits a value per pixel while dragged, and spotifyd sends each
+  // volume change to Spotify, which answers 429 after a burst of about 20 and
+  // leaves the controls dead. A drag sends at most one every 300 ms, then its
+  // final value on release.
+  property real pendingVolume: -1
+
+  function queueVolume(value) {
+    pendingVolume = value
+    if (!volumeThrottle.running) flushVolume()
+  }
+
+  function flushVolume() {
+    if (pendingVolume < 0) return
+    if (player && player.volumeSupported) player.volume = pendingVolume
+    pendingVolume = -1
+    volumeThrottle.restart()
+  }
+
+  Timer {
+    id: volumeThrottle
+    interval: 300
+    onTriggered: root.flushVolume()
+  }
+
   function toggleMute() {
     if (!player || !player.volumeSupported) return
     if (player.volume > 0.001) {
@@ -444,7 +468,8 @@ BarWidget {
           maximum: 1
           step: 0.05
           value: root.player ? root.player.volume : 0
-          onMoved: function(value) { if (root.player) root.player.volume = value }
+          onMoved: function(value) { root.queueVolume(value) }
+          onReleased: function(value) { root.flushVolume() }
           onRightClicked: root.toggleMute()
         }
       }
